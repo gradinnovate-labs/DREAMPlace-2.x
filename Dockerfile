@@ -1,19 +1,22 @@
-FROM pytorch/pytorch:1.0-cuda10.0-cudnn7-devel
+FROM pytorch/pytorch:1.7.1-cuda11.0-cudnn8-devel
 LABEL maintainer="Yibo Lin <yibolin@pku.edu.cn>"
 
-# install system dependency 
-RUN apt-get update \
+# install system dependency
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub \
+        && apt-get update \
         && apt-get install -y \
             wget \
             flex \
-            bison \
             libcairo2-dev \
-            libboost-all-dev 
+            libboost-all-dev
+
+# install newer bison (3.3+ required)
+RUN conda install -y -c conda-forge bison 
 
 # install cmake
-ADD https://cmake.org/files/v3.8/cmake-3.8.2-Linux-x86_64.sh /cmake-3.8.2-Linux-x86_64.sh
+ADD https://github.com/Kitware/CMake/releases/download/v3.25.1/cmake-3.25.1-linux-x86_64.sh /cmake-3.25.1-linux-x86_64.sh
 RUN mkdir /opt/cmake \
-        && sh /cmake-3.8.2-Linux-x86_64.sh --prefix=/opt/cmake --skip-license \
+        && sh /cmake-3.25.1-linux-x86_64.sh --prefix=/opt/cmake --skip-license \
         && ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake \
         && cmake --version
 
@@ -26,4 +29,4 @@ RUN pip install \
         pkgconfig>=1.4.0 \
         setuptools>=39.1.0 \
         scipy>=1.1.0 \
-        numpy>=1.15.4 
+        numpy>=1.20

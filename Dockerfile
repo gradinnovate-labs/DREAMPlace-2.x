@@ -22,7 +22,7 @@ RUN mkdir /opt/cmake \
 
 # install python dependency 
 RUN pip install --upgrade \
-        'numpy>=1.20' \
+        numpy==1.20 \
         pyunpack>=0.1.2 \
         patool>=1.12 \
         matplotlib>=2.2.2 \

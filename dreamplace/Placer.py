@@ -136,8 +136,20 @@ def place(params):
             "External detailed placement engine %s or aux file NOT found" %
             (params.detailed_place_engine))
 
-    return metrics
-
+    # Output final HPWL from the last recorded metric
+    if metrics:
+        final_metric = metrics[-1]
+        logging.info("="*60)
+        logging.info("FINAL PLACEMENT RESULTS")
+        logging.info("="*60)
+        logging.info("Final iteration: %d" % final_metric.iteration)
+        if final_metric.hpwl is not None:
+            logging.info("Final HPWL: %.3E" % final_metric.hpwl)
+        if final_metric.overflow is not None:
+            logging.info("Final overflow: %.3E" % final_metric.overflow)
+        if final_metric.max_density is not None:
+            logging.info("Final max density: %.3E" % final_metric.max_density)
+        logging.info("="*60)
 
     return metrics
 

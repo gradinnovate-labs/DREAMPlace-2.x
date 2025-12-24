@@ -13,3 +13,6 @@ install
 *.so
 thirdparty/flute
 .DS_Store
+.build/
+.install
+tmp/

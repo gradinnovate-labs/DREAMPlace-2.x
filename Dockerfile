@@ -21,12 +21,12 @@ RUN mkdir /opt/cmake \
         && cmake --version
 
 # install python dependency 
-RUN pip install \
+RUN pip install --upgrade \
+        'numpy>=1.20' \
         pyunpack>=0.1.2 \
         patool>=1.12 \
         matplotlib>=2.2.2 \
         cairocffi>=0.9.0 \
         pkgconfig>=1.4.0 \
         setuptools>=39.1.0 \
-        scipy>=1.1.0 \
-        numpy>=1.20
+        scipy>=1.1.0
